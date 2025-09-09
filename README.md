@@ -28,7 +28,7 @@
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-username/cat-adopt.git
+   git clone https://github.com/your-username/cat-adoption-center.git
 
 ##Further Updates
   updateUx, localStorage
