@@ -4,7 +4,6 @@ import CatsContext from "./Context/CatsContext";
 
 const CatCard = ({ cat, isInfoShown, onToggle }) => {
   const { setCats } = useContext(CatsContext);
-  console.log(cat);
 
   // Toggle favourite state
   const handleLike = (id) => {
