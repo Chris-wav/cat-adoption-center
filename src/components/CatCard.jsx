@@ -1,0 +1,66 @@
+import { useContext } from "react";
+import styles from "./CatCard.module.css";
+import CatsContext from "./Context/CatsContext";
+
+const CatCard = ({ cat, isInfoShown, onToggle }) => {
+  const { setCats } = useContext(CatsContext);
+  console.log(cat.name, "isInfoShown:", isInfoShown);
+
+  const handleLike = (id) => {
+    setCats((prev) =>
+      prev.map((cat) => (cat.id === id ? { ...cat, liked: !cat.liked } : cat))
+    );
+  };
+
+  const handleAdopt = (id) => {
+    setCats((prev) =>
+      prev.map((cat) =>
+        cat.id === id ? { ...cat, adopted: !cat.adopted } : cat
+      )
+    );
+  };
+  return (
+    <div className={`${styles.card} ${isInfoShown ? styles.expanded : ""}`}>
+      <div className={styles.catImageWrapper}>
+        {cat.image?.url ? (
+          <img src={cat.image.url} alt={cat.name} className={styles.catImage} />
+        ) : (
+          <div className={styles.placeholder}>
+            🐱
+            <p className={styles.placeholderText}>No cute cat photo yet! 😸</p>
+          </div>
+        )}
+      </div>
+
+      <h2 className={styles.breed}>{cat.name}</h2>
+      <h4 className={styles.origin}>From: {cat.origin}</h4>
+      <h4 className={styles.lifespan}>Lifespan: {cat.life_span} years</h4>
+      <div className={styles.buttonsContainer}>
+        <button className={styles.favourite} onClick={() => handleLike(cat.id)}>
+          {cat.liked ? "❤️" : "🤍"}
+        </button>
+        <button
+          className={styles.adoptButton}
+          onClick={() => handleAdopt(cat.id)}
+        >
+          {cat.adopted ? "Adopted ✔️" : "Adopt"}
+        </button>
+      </div>
+
+      <button onClick={onToggle}>
+        {isInfoShown ? "Hide info 🔽" : "Show info 🔼"}
+      </button>
+
+      <div
+        className={`${styles.infoContainer} ${isInfoShown ? styles.show : ""}`}
+      >
+        <h3>Cuddles: {"❤️".repeat(cat.affection_level)}</h3>
+        <h3>Child Friendly: {"👶".repeat(cat.child_friendly)}</h3>
+        <h3>Energetic: {"⚡".repeat(cat.energy_level)}</h3>
+        <h3>Intelligence: {"🧠".repeat(cat.intelligence)}</h3>
+      </div>
+    </div>
+  );
+};
+
+export default CatCard;
