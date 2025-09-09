@@ -1,5 +1,7 @@
 # Cat-Adopt 🐱
 
+IMPORTANT:Currently trying to fix a bug that has to do with the image fetching/rendering
+
 **Cat-Adopt** is a modern web application for cat adoption, built with **React**. Users can browse available cats, search, add favorites, and submit adoption requests.
 
 ---
