@@ -4,14 +4,16 @@ import CatsContext from "./Context/CatsContext";
 
 const CatCard = ({ cat, isInfoShown, onToggle }) => {
   const { setCats } = useContext(CatsContext);
-  console.log(cat.name, "isInfoShown:", isInfoShown);
+  console.log(cat);
 
+  // Toggle favourite state
   const handleLike = (id) => {
     setCats((prev) =>
       prev.map((cat) => (cat.id === id ? { ...cat, liked: !cat.liked } : cat))
     );
   };
 
+  // Toggle adopted state
   const handleAdopt = (id) => {
     setCats((prev) =>
       prev.map((cat) =>
@@ -19,11 +21,20 @@ const CatCard = ({ cat, isInfoShown, onToggle }) => {
       )
     );
   };
+
   return (
-    <div className={`${styles.card} ${isInfoShown ? styles.expanded : ""}`}>
+    <div className={styles.card}>
+      {/* Cat image */}
       <div className={styles.catImageWrapper}>
-        {cat.image?.url ? (
-          <img src={cat.image.url} alt={cat.name} className={styles.catImage} />
+        {cat.url || cat.reference_image_id ? (
+          <img
+            src={
+              cat.url ||
+              `https://cdn2.thecatapi.com/images/${cat.reference_image_id}.jpg`
+            }
+            alt={cat.name}
+            className={styles.catImage}
+          />
         ) : (
           <div className={styles.placeholder}>
             🐱
@@ -32,9 +43,12 @@ const CatCard = ({ cat, isInfoShown, onToggle }) => {
         )}
       </div>
 
+      {/* Cat info */}
       <h2 className={styles.breed}>{cat.name}</h2>
       <h4 className={styles.origin}>From: {cat.origin}</h4>
       <h4 className={styles.lifespan}>Lifespan: {cat.life_span} years</h4>
+
+      {/* Action buttons */}
       <div className={styles.buttonsContainer}>
         <button className={styles.favourite} onClick={() => handleLike(cat.id)}>
           {cat.liked ? "❤️" : "🤍"}
@@ -47,10 +61,12 @@ const CatCard = ({ cat, isInfoShown, onToggle }) => {
         </button>
       </div>
 
+      {/* Toggle info panel */}
       <button onClick={onToggle}>
         {isInfoShown ? "Hide info 🔽" : "Show info 🔼"}
       </button>
 
+      {/* Info panel */}
       <div
         className={`${styles.infoContainer} ${isInfoShown ? styles.show : ""}`}
       >
