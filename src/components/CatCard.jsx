@@ -25,12 +25,9 @@ const CatCard = ({ cat, isInfoShown, onToggle }) => {
     <div className={styles.card}>
       {/* Cat image */}
       <div className={styles.catImageWrapper}>
-        {cat.url || cat.reference_image_id ? (
+        {cat.url || cat.image?.url ? (
           <img
-            src={
-              cat.url ||
-              `https://cdn2.thecatapi.com/images/${cat.reference_image_id}.jpg`
-            }
+            src={cat.url || cat.image?.url}
             alt={cat.name}
             className={styles.catImage}
           />

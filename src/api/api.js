@@ -16,7 +16,7 @@ export const fetchCats = async () => {
     return data;
   } catch (error) {
     console.error("Failed to fetch cats:", error);
-    return []; // Επιστρέφει κενό array σε περίπτωση σφάλματος
+    return [];
   }
 };
 
